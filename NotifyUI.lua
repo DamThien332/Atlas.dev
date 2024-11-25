@@ -1,201 +1,29 @@
-local TweenService = game:GetService("TweenService")
+--[[
+ ______  __    ___                          __                    
+/\  _  \/\ \__/\_ \                        /\ \                   
+\ \ \L\ \ \ ,_\//\ \      __      ____     \_\ \     __   __  __  
+ \ \  __ \ \ \/ \ \ \   /'__`\   /',__\    /'_` \  /'__`\/\ \/\ \ 
+  \ \ \/\ \ \ \_ \_\ \_/\ \L\.\_/\__, `\__/\ \L\ \/\  __/\ \ \_/ |
+   \ \_\ \_\ \__\/\____\ \__/.\_\/\____/\_\ \___,_\ \____\\ \___/ 
+    \/_/\/_/\/__/\/____/\/__/\/_/\/___/\/_/\/__,_ /\/____/ \/__/  
 
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "NotificationGui"
-ScreenGui.Parent = game.CoreGui
+    This script is NOT intended to be modified.
+    To view the source code, see the 'Src' folder on the official GitHub repository.
 
-local CONFIG = {
-    Duration = 10,
-    Position = UDim2.new(1, -20, 0, 20),
-    Size = UDim2.new(0, 350, 0, 70),
-    BackgroundColor = Color3.fromRGB(0, 0, 0),
-    TextColor = Color3.fromRGB(255, 255, 255),
-    AccentColor = Color3.fromRGB(118, 185, 0),
-    Font = Enum.Font.GothamBold,
-    TextSize = 16,
-    ParticleConfig = {
-        Count = 200,
-        MinSize = 0.8,
-        MaxSize = 1,
-        MinSpeed = 4,
-        MaxSpeed = 7,
-        FadeTime = 3
-    }
-}
+    Author: damthien_42289#0 (Discord User)
+    Github: https://github.com/DamThien332/Atlas.dev
+    Discord: https://discord.gg/xNqUjKnUYZ
 
-local function createGlow(parent, color, size, transparency)
-    local glow = Instance.new("ImageLabel")
-    glow.Name = "Glow"
-    glow.BackgroundTransparency = 1
-    glow.Image = "rbxassetid://7131988516"
-    glow.ImageColor3 = color
-    glow.ImageTransparency = transparency
-    glow.Size = UDim2.new(1.5, 0, 1.5, 0)
-    glow.SizeConstraint = Enum.SizeConstraint.RelativeXX
-    glow.Position = UDim2.new(0.5, 0, 0.5, 0)
-    glow.AnchorPoint = Vector2.new(0.5, 0.5)
-    glow.ZIndex = parent.ZIndex - 1
-    glow.Parent = parent
-    return glow
-end
+]]-- 
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.8) ~  Much Love, Ferib 
 
-local function createParticle(container)
-    local particle = Instance.new("Frame")
-    particle.BackgroundColor3 = CONFIG.AccentColor
-    particle.BorderSizePixel = 0
-    
-    local size = math.random(CONFIG.ParticleConfig.MinSize, CONFIG.ParticleConfig.MaxSize)
-    particle.Size = UDim2.new(0, size, 0, size)
-    particle.Position = UDim2.new(math.random(), 0, math.random(), 0)
-    
-    local glow = createGlow(particle, CONFIG.AccentColor, size * 1.5, 0.7)
-    Instance.new("UICorner", particle).CornerRadius = UDim.new(1, 0)
-    particle.Parent = container
-    
-    local function animateParticle()
-        while particle.Parent do
-            local duration = math.random(CONFIG.ParticleConfig.MinSpeed, CONFIG.ParticleConfig.MaxSpeed)
-            local targetX = math.random()
-            local targetY = math.random()
-            
-            local tween = TweenService:Create(particle, 
-                TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), 
-                {Position = UDim2.new(targetX, 0, targetY, 0)}
-            )
-            
-            local transparencyTween = TweenService:Create(particle,
-                TweenInfo.new(CONFIG.ParticleConfig.FadeTime, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
-                {BackgroundTransparency = 0.7}
-            )
-            
-            local glowTween = TweenService:Create(glow,
-                TweenInfo.new(CONFIG.ParticleConfig.FadeTime, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
-                {ImageTransparency = 0.9}
-            )
-            
-            tween:Play()
-            transparencyTween:Play()
-            glowTween:Play()
-            
-            wait(duration)
-        end
-    end
-    
-    coroutine.wrap(animateParticle)()
-end
+]]--
 
-local function createAnimatedBackground(parent)
-    local backgroundContainer = Instance.new("Frame")
-    backgroundContainer.Name = "AnimatedBackground"
-    backgroundContainer.Size = UDim2.new(1, 0, 1, 0)
-    backgroundContainer.BackgroundTransparency = 1
-    backgroundContainer.ZIndex = 0
-    backgroundContainer.Parent = parent
-    
-    for _ = 1, CONFIG.ParticleConfig.Count do
-        createParticle(backgroundContainer)
-    end
-end
-
-local function CreateNotification()
-    local notification = Instance.new("Frame")
-    notification.Name = "Notification"
-    notification.Size = CONFIG.Size
-    notification.Position = UDim2.new(1, 20, 0, CONFIG.Position.Y.Offset)
-    notification.AnchorPoint = Vector2.new(1, 0)
-    notification.BackgroundColor3 = CONFIG.BackgroundColor
-    notification.BorderSizePixel = 0
-    notification.BackgroundTransparency = 0.1
-    notification.ClipsDescendants = true
-    notification.Parent = ScreenGui
-    
-    createAnimatedBackground(notification)
-    
-    local accentBar = Instance.new("Frame")
-    accentBar.Name = "AccentBar"
-    accentBar.Size = UDim2.new(1, 0, 1, 0)
-    accentBar.Position = UDim2.new(0, 0, 0, 0)
-    accentBar.BackgroundColor3 = CONFIG.AccentColor
-    accentBar.BorderSizePixel = 0
-    accentBar.Parent = notification
-    
-    local contentContainer = Instance.new("Frame")
-    contentContainer.Name = "ContentContainer"
-    contentContainer.Size = UDim2.new(1, 0, 1, 0)
-    contentContainer.BackgroundTransparency = 1
-    contentContainer.Parent = notification
-    
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Name = "Title"
-    titleLabel.Size = UDim2.new(0, 200, 0, 20)
-    titleLabel.Position = UDim2.new(0, 20, 0, 15)
-    titleLabel.BackgroundTransparency = 1
-    titleLabel.Font = CONFIG.Font
-    titleLabel.TextSize = CONFIG.TextSize
-    titleLabel.TextColor3 = CONFIG.TextColor
-    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    titleLabel.Text = "Notification"
-    titleLabel.TextTransparency = 1
-    titleLabel.Parent = contentContainer
-    
-    local messageLabel = Instance.new("TextLabel")
-    messageLabel.Name = "Message"
-    messageLabel.Size = UDim2.new(0, 200, 0, 20)
-    messageLabel.Position = UDim2.new(0, 20, 0, 35)
-    messageLabel.BackgroundTransparency = 1
-    messageLabel.Font = CONFIG.Font
-    messageLabel.TextSize = CONFIG.TextSize - 2
-    messageLabel.TextColor3 = CONFIG.TextColor
-    messageLabel.TextXAlignment = Enum.TextXAlignment.Left
-    messageLabel.Text = "Anti Cheat Bypassed!"
-    messageLabel.TextTransparency = 1
-    messageLabel.Parent = contentContainer
-    
-    local fixedAccentBar = Instance.new("Frame")
-    fixedAccentBar.Name = "FixedAccentBar"
-    fixedAccentBar.Size = UDim2.new(0, 4, 1, 0)
-    fixedAccentBar.Position = UDim2.new(0, 0, 0, 0)
-    fixedAccentBar.BackgroundColor3 = CONFIG.AccentColor
-    fixedAccentBar.BorderSizePixel = 0
-    fixedAccentBar.Visible = false
-    fixedAccentBar.Parent = notification
-    
-    local function animate()
-        local enterTween = TweenService:Create(notification, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
-            Position = CONFIG.Position
-        })
-        enterTween:Play()
-        enterTween.Completed:Wait()
-        
-        task.wait(0.2)
-        
-        fixedAccentBar.Visible = true
-        
-        local accentTween = TweenService:Create(accentBar, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.InOut), {
-            Size = UDim2.new(0, 4, 1, 0)
-        })
-        accentTween:Play()
-        
-        task.wait(0.2)
-        
-        local textTween1 = TweenService:Create(titleLabel, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
-            TextTransparency = 0
-        })   
-        local textTween2 = TweenService:Create(messageLabel, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
-            TextTransparency = 0.2
-        })
-        textTween1:Play()
-        textTween2:Play()
-        accentTween.Completed:Wait()
-        accentBar:Destroy()
-        task.wait(CONFIG.Duration)
-        local exitTween = TweenService:Create(notification, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
-            Position = UDim2.new(1, 20, notification.Position.Y.Scale, notification.Position.Y.Offset)
-        })
-        exitTween:Play()
-        exitTween.Completed:Wait()
-        notification:Destroy()
-    end
-    task.spawn(animate)
-end
-CreateNotification()
+local v0=game:GetService("TweenService");local v1=Instance.new("ScreenGui");v1.Name="NotificationGui";v1.Parent=game.CoreGui;local v5={Duration=10,Position=UDim2.new(1, -20,0,20),Size=UDim2.new(0,350,0,70),BackgroundColor=Color3.fromRGB(0,0,0),TextColor=Color3.fromRGB(255,255,255),AccentColor=Color3.fromRGB(118,185,0),Font=Enum.Font.GothamBold,TextSize=16,ParticleConfig={Count=200,MinSize=0.8,MaxSize=1,MinSpeed=4,MaxSpeed=7,FadeTime=3}};local function v6(v10,v11,v12,v13) local v14=Instance.new("ImageLabel");v14.Name="Glow";v14.BackgroundTransparency=1;v14.Image="rbxassetid://7131988516";v14.ImageColor3=v11;v14.ImageTransparency=v13;v14.Size=UDim2.new(1.5,0,1.5,0);v14.SizeConstraint=Enum.SizeConstraint.RelativeXX;v14.Position=UDim2.new(0.5,0,0.5,0);v14.AnchorPoint=Vector2.new(0.5,0.5);v14.ZIndex=v10.ZIndex-1 ;v14.Parent=v10;return v14;end local function v7(v27) local v28=Instance.new("Frame");v28.BackgroundColor3=v5.AccentColor;v28.BorderSizePixel=0;local v32=math.random(v5.ParticleConfig.MinSize,v5.ParticleConfig.MaxSize);v28.Size=UDim2.new(0,v32,0,v32);v28.Position=UDim2.new(math.random(),0,math.random(),0);local v35=v6(v28,v5.AccentColor,v32 * 1.5 ,0.7);Instance.new("UICorner",v28).CornerRadius=UDim.new(1,0);v28.Parent=v27;local function v38() while v28.Parent do local v115=math.random(v5.ParticleConfig.MinSpeed,v5.ParticleConfig.MaxSpeed);local v116=math.random();local v117=math.random();local v118=v0:Create(v28,TweenInfo.new(v115,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut),{Position=UDim2.new(v116,0,v117,0)});local v119=v0:Create(v28,TweenInfo.new(v5.ParticleConfig.FadeTime,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut, -1,true),{BackgroundTransparency=0.7});local v120=v0:Create(v35,TweenInfo.new(v5.ParticleConfig.FadeTime,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut, -1,true),{ImageTransparency=0.9});v118:Play();v119:Play();v120:Play();wait(v115);end end coroutine.wrap(v38)();end local function v8(v39) local v40=Instance.new("Frame");v40.Name="AnimatedBackground";v40.Size=UDim2.new(1,0,1,0);v40.BackgroundTransparency=1;v40.ZIndex=0;v40.Parent=v39;for v108=1,v5.ParticleConfig.Count do v7(v40);end end local function v9() local v46=Instance.new("Frame");v46.Name="Notification";v46.Size=v5.Size;v46.Position=UDim2.new(1,20,0,v5.Position.Y.Offset);v46.AnchorPoint=Vector2.new(1,0);v46.BackgroundColor3=v5.BackgroundColor;v46.BorderSizePixel=0;v46.BackgroundTransparency=0.1;v46.ClipsDescendants=true;v46.Parent=v1;v8(v46);local v58=Instance.new("Frame");v58.Name="AccentBar";v58.Size=UDim2.new(1,0,1,0);v58.Position=UDim2.new(0,0,0,0);v58.BackgroundColor3=v5.AccentColor;v58.BorderSizePixel=0;v58.Parent=v46;local v66=Instance.new("Frame");v66.Name="ContentContainer";v66.Size=UDim2.new(1,0,1,0);v66.BackgroundTransparency=1;v66.Parent=v46;local v71=Instance.new("TextLabel");v71.Name="Title";v71.Size=UDim2.new(0,200,0,20);v71.Position=UDim2.new(0,20,0,15);v71.BackgroundTransparency=1;v71.Font=v5.Font;v71.TextSize=v5.TextSize;v71.TextColor3=v5.TextColor;v71.TextXAlignment=Enum.TextXAlignment.Left;v71.Text="Notification";v71.TextTransparency=1;v71.Parent=v66;local v87=Instance.new("TextLabel");v87.Name="Message";v87.Size=UDim2.new(0,200,0,20);v87.Position=UDim2.new(0,20,0,35);v87.BackgroundTransparency=1;v87.Font=v5.Font;v87.TextSize=v5.TextSize-2 ;v87.TextColor3=v5.TextColor;v87.TextXAlignment=Enum.TextXAlignment.Left;v87.Text="Anti Cheat Bypassed!";v87.TextTransparency=1;v87.Parent=v66;local v99=Instance.new("Frame");v99.Name="FixedAccentBar";v99.Size=UDim2.new(0,4,1,0);v99.Position=UDim2.new(0,0,0,0);v99.BackgroundColor3=v5.AccentColor;v99.BorderSizePixel=0;v99.Visible=false;v99.Parent=v46;local function v107() local v109=v0:Create(v46,TweenInfo.new(0.5,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),{Position=v5.Position});v109:Play();v109.Completed:Wait();task.wait(0.2);v99.Visible=true;local v111=v0:Create(v58,TweenInfo.new(0.5,Enum.EasingStyle.Quart,Enum.EasingDirection.InOut),{Size=UDim2.new(0,4,1,0)});v111:Play();task.wait(0.2);local v112=v0:Create(v71,TweenInfo.new(0.3,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),{TextTransparency=0});local v113=v0:Create(v87,TweenInfo.new(0.3,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),{TextTransparency=0.2});v112:Play();v113:Play();v111.Completed:Wait();v58:Destroy();task.wait(v5.Duration);local v114=v0:Create(v46,TweenInfo.new(0.5,Enum.EasingStyle.Quart,Enum.EasingDirection.In),{Position=UDim2.new(1,20,v46.Position.Y.Scale,v46.Position.Y.Offset)});v114:Play();v114.Completed:Wait();v46:Destroy();end task.spawn(v107);end v9();
