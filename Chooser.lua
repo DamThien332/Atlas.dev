@@ -1,4 +1,21 @@
+--[[
+ ______  __    ___                          __                    
+/\  _  \/\ \__/\_ \                        /\ \                   
+\ \ \L\ \ \ ,_\//\ \      __      ____     \_\ \     __   __  __  
+ \ \  __ \ \ \/ \ \ \   /'__`\   /',__\    /'_` \  /'__`\/\ \/\ \ 
+  \ \ \/\ \ \ \_ \_\ \_/\ \L\.\_/\__, `\__/\ \L\ \/\  __/\ \ \_/ |
+   \ \_\ \_\ \__\/\____\ \__/.\_\/\____/\_\ \___,_\ \____\\ \___/ 
+    \/_/\/_/\/__/\/____/\/__/\/_/\/___/\/_/\/__,_ /\/____/ \/__/  
 
+    This script is NOT intended to be modified.
+    To view the source code, see the 'Src' folder on the official GitHub repository.
+
+    Author: damthien_42289#0 (Discord User)
+    Github: https://github.com/DamThien332/Atlas.dev
+    Discord: https://discord.gg/xNqUjKnUYZ
+    @ Atlas.dev | LICENSE
+--// Hey, before skidding read — LICENSE ✨.
+]]-- 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 
@@ -36,7 +53,7 @@ ScreenGui.Name = "NeonChooser"
 ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 400, 0, 300) -- Reduzido para 400x300
+MainFrame.Size = UDim2.new(0, 400, 0, 300) -- 400x300
 MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 MainFrame.BackgroundColor3 = COLORS.BLACK
