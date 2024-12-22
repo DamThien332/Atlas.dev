@@ -25,10 +25,10 @@ local Buttons = {
 }
 
 local Scripts = {
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/main/TPS/AutoFarmGoals.lua",
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/main/TPS/PC.lua",
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/main/TPS/Mobile.lua",
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/refs/heads/main/TPS/iPhone.lua"
+    "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/FreeScript/PC.lua",
+    "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/FreeScript/Mobile.lua",
+    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/main/TPS/Mobsdffsile.lfsdua",
+    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/refs/heads/main/TPS/iPhfsdfone.lua"
 }
 
 local ScreenGui = Instance.new("ScreenGui")
