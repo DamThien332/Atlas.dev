@@ -19,7 +19,7 @@ local ICONS = {
 
 local Buttons = {
     {text = "PC", icon = ICONS.FARM},
-    {text = "Mobike", icon = ICONS.PC},
+    {text = "Mobile", icon = ICONS.PC},
     {text = "Soon", icon = ICONS.MOBILE},
     {text = "Soon", icon = ICONS.IOS}
 }
