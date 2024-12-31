@@ -18,16 +18,16 @@ local ICONS = {
 
 local Buttons = {
     {text = "PC", icon = ICONS.FARM},
-    {text = "Mobike", icon = ICONS.PC},
-    {text = "Soon", icon = ICONS.MOBILE},
+    {text = "Mobile", icon = ICONS.PC},
+    {text = "Lite Version", icon = ICONS.MOBILE},
     {text = "Soon", icon = ICONS.IOS}
 }
 
 local Scripts = {
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/main/TPS/AutoFarmGoals.lua",
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/main/TPS/PC.lua",
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/main/TPS/Mobile.lua",
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/refs/heads/main/TPS/iPhone.lua"
+    "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/FreeScript/PC.lua",
+    "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/FreeScript/Mobile.lua",
+    "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/FreeScript/LiteVersion.lua",
+    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/refs/heads/main/TPS/iPhodne.lua"
 }
 
 local ScreenGui = Instance.new("ScreenGui")
