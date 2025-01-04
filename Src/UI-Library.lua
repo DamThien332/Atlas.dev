@@ -1,5 +1,5 @@
 --[[
-
+--please, use another UI, stop stole my fixed code that work 10 min for fix :cry:
 ]]--
 
 local UserInputService = game:GetService('UserInputService')
