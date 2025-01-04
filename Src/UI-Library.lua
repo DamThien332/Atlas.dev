@@ -326,40 +326,39 @@ function Library.__init()
     local defaultPosition = UDim2.new(0.5, -300, 0.8, 33)
     local newPosition1 = UDim2.new(0.5, 0.5)
     
-    local ctrlDown = false
-    local cDown = false
-    
-    local function tweenPosition(targetPosition)
-        local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
-        local goal = {Position = targetPosition}
-        local tween = TweenService:Create(mobile_button, tweenInfo, goal)
-        tween:Play()
+local ctrlDown = false
+local cDown = false
+
+local function tweenPosition(targetPosition)
+    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
+    local goal = {Position = targetPosition}
+    local tween = TweenService:Create(mobile_button, tweenInfo, goal)
+    tween:Play()
+end
+
+local function onInputBegan(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.LeftControl or input.KeyCode == Enum.KeyCode.RightControl then
+        ctrlDown = true
+    elseif input.KeyCode == Enum.KeyCode.C then
+        cDown = true
+    elseif input.KeyCode == Enum.KeyCode.P and ctrlDown and cDown then
+        tweenPosition(newPosition1)  
+    elseif input.KeyCode == Enum.KeyCode.B and ctrlDown and cDown then
+        tweenPosition(defaultPosition)  
     end
-    
-    local function onInputBegan(input, gameProcessed)
-        if gameProcessed then return end
-        
-        if input.KeyCode == Enum.KeyCode.LeftControl or input.KeyCode == Enum.KeyCode.RightControl then
-            ctrlDown = true
-        elseif input.KeyCode == Enum.KeyCode.C then
-            cDown = true
-        elseif input.KeyCode == Enum.KeyCode.P and ctrlDown and cDown then
-            tweenPosition(newPosition1)
-        elseif input.KeyCode == Enum.KeyCode.B and ctrlDown and cDown then
-            tweenPosition(defaultPosition)
-        end
+end
+
+local function onInputEnded(input)
+    if input.KeyCode == Enum.KeyCode.LeftControl or input.KeyCode == Enum.KeyCode.RightControl then
+        ctrlDown = false
+    elseif input.KeyCode == Enum.KeyCode.C then
+        cDown = false
     end
-    
-    local function onInputEnded(input)
-        if input.KeyCode == Enum.KeyCode.LeftControl or input.KeyCode == Enum.KeyCode.RightControl then
-            ctrlDown = false
-        elseif input.KeyCode == Enum.KeyCode.C then
-            cDown = false
-        end
-    end
-    
-    UserInputService.InputBegan:Connect(onInputBegan)
-    UserInputService.InputEnded:Connect(onInputEnded)
+end
+game:GetService("UserInputService").InputBegan:Connect(onInputBegan)
+game:GetService("UserInputService").InputEnded:Connect(onInputEnded)
+
     
     local UIS = game:GetService("UserInputService")
     local TweenService = game:GetService("TweenService")
