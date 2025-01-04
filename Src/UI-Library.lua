@@ -1,6 +1,6 @@
 --[[
 --please, use another UI, stop stole my fixed code that work 10 min for fix :cry:
-]]--
+]]--2
 
 local UserInputService = game:GetService('UserInputService')
 local LocalPlayer = game:GetService('Players').LocalPlayer
