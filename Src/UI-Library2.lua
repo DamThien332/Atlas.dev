@@ -52,7 +52,7 @@ local redzlib = {
 	},
 	Save = {
 		UISize = {550, 380},
-		TabSize = 160,
+		TabSize = 140, --default 160
 		Theme = "Dark"
 	},
 	Settings = {},
@@ -601,7 +601,7 @@ function redzlib:MakeWindow(Configs)
 	local MainFrame = InsertTheme(Create("ImageButton", ScreenGui, {
 		Size = UDim2.fromOffset(UISizeX, UISizeY),
 		Position = UDim2.new(0.5, -UISizeX/2, 0.5, -UISizeY/2),
-		BackgroundTransparency = 0.05, -- DEFAULT: 0.04
+		BackgroundTransparency = 0.06, -- DEFAULT: 0.04
 		Name = "Hub"
 	}), "Main")
 	Make("Gradient", MainFrame, {
