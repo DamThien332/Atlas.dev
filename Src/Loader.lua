@@ -1,4 +1,11 @@
---.
+local PromptInterface = loadstring(game:HttpGet("https://raw.githubusercontent.com/CookieCrumble2/Prompt-UI/refs/heads/main/load.lua"))()
+PromptInterface.create(
+    "Welcome to Atlas.dev", 
+    "By clicking Accept, you agree to the terms and conditions of this script, which include the risk of being blacklisted/banned for certain acts.", 
+    "Accept", 
+    "Cancel", 
+    function(apw) 
+        if apw then
 local TweenService = game:GetService("TweenService")
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
@@ -35,9 +42,10 @@ UICorner.CornerRadius = UDim.new(0, 15)
 UICorner.Parent = MainFrame
 
 UIGradient.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 40)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 25, 25))
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 50, 100)), 
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 25, 50))
 })
+
 UIGradient.Rotation = 45
 UIGradient.Parent = MainFrame
 
@@ -47,7 +55,8 @@ GlowEffect.BackgroundTransparency = 1
 GlowEffect.Position = UDim2.new(0.5, -400, 0.5, -400)
 GlowEffect.Size = UDim2.new(0, 800, 0, 800)
 GlowEffect.Image = "rbxassetid://7131946098"
-GlowEffect.ImageColor3 = Color3.fromRGB(0, 255, 100)
+GlowEffect.ImageColor3 = Color3.fromRGB(0, 100, 255)
+
 GlowEffect.ImageTransparency = 0.9
 
 Title.Name = "Title"
@@ -56,13 +65,13 @@ Title.BackgroundTransparency = 1
 Title.Position = UDim2.new(0, 0, 0, 30)
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.Font = Enum.Font.GothamBold
-Title.Text = "LOADING SYSTEM"
+Title.Text = "LOADER SCRIPT"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 36
 
 Separator.Name = "Separator"
 Separator.Parent = MainFrame
-Separator.BackgroundColor3 = Color3.fromRGB(0, 255, 100)
+Separator.BackgroundColor3 = Color3.fromRGB(0, 100, 255)
 Separator.Position = UDim2.new(0.25, 0, 0, 85)
 Separator.Size = UDim2.new(0.5, 0, 0, 2)
 Separator.BorderSizePixel = 0
@@ -78,8 +87,8 @@ OwnerIcon.Parent = CreditsContainer
 OwnerIcon.BackgroundTransparency = 1
 OwnerIcon.Position = UDim2.new(0.5, -100, 0, 10)
 OwnerIcon.Size = UDim2.new(0, 30, 0, 30)
-OwnerIcon.Image = "rbxassetid://7072706796"
-OwnerIcon.ImageColor3 = Color3.fromRGB(0, 255, 100)
+OwnerIcon.Image = "rbxassetid://98024874691582"
+OwnerIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
 
 OwnerCredit.Name = "OwnerCredit"
 OwnerCredit.Parent = CreditsContainer
@@ -87,7 +96,7 @@ OwnerCredit.BackgroundTransparency = 1
 OwnerCredit.Position = UDim2.new(0.5, -60, 0, 10)
 OwnerCredit.Size = UDim2.new(0, 200, 0, 30)
 OwnerCredit.Font = Enum.Font.GothamSemibold
-OwnerCredit.Text = "Owner: Luna"
+OwnerCredit.Text = "Owner: DamnThien"
 OwnerCredit.TextColor3 = Color3.fromRGB(255, 255, 255)
 OwnerCredit.TextSize = 22
 OwnerCredit.TextXAlignment = Enum.TextXAlignment.Left
@@ -97,8 +106,8 @@ FriendIcon.Parent = CreditsContainer
 FriendIcon.BackgroundTransparency = 1
 FriendIcon.Position = UDim2.new(0.5, -100, 0, 50)
 FriendIcon.Size = UDim2.new(0, 30, 0, 30)
-FriendIcon.Image = "rbxassetid://7072724538"
-FriendIcon.ImageColor3 = Color3.fromRGB(0, 255, 100)
+FriendIcon.Image = "rbxassetid://134105094605918"
+FriendIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
 
 FriendsCredit.Name = "FriendsCredit"
 FriendsCredit.Parent = CreditsContainer
@@ -106,7 +115,7 @@ FriendsCredit.BackgroundTransparency = 1
 FriendsCredit.Position = UDim2.new(0.5, -60, 0, 50)
 FriendsCredit.Size = UDim2.new(0, 200, 0, 30)
 FriendsCredit.Font = Enum.Font.GothamSemibold
-FriendsCredit.Text = "Friends: Luxy"
+FriendsCredit.Text = "Staff: AtlasTeam"
 FriendsCredit.TextColor3 = Color3.fromRGB(255, 255, 255)
 FriendsCredit.TextSize = 22
 FriendsCredit.TextXAlignment = Enum.TextXAlignment.Left
@@ -123,7 +132,7 @@ LoadingBarCorner.Parent = LoadingBarFrame
 
 LoadingBar.Name = "LoadingBar"
 LoadingBar.Parent = LoadingBarFrame
-LoadingBar.BackgroundColor3 = Color3.fromRGB(0, 255, 100)
+LoadingBar.BackgroundColor3 = Color3.fromRGB(0, 100, 255)
 LoadingBar.BorderSizePixel = 0
 LoadingBar.Size = UDim2.new(0, 0, 1, 0)
 
@@ -150,7 +159,7 @@ LoadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
 LoadingText.TextSize = 18
 local loadingMessages = {
     "Initializing system...",
-    "Loading resources...",
+    "Loading Systems...",
     "Preparing environment...",
     "Setting up modules...",
     "Almost there...",
@@ -165,7 +174,7 @@ local function animateLoading()
             if UIGradient.Rotation >= 360 then
                 UIGradient.Rotation = 0
             end
-            wait(0.1)
+            task.wait(0.1)
         end
     end)
 
@@ -174,7 +183,7 @@ local function animateLoading()
             local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
             local tween = TweenService:Create(GlowEffect, tweenInfo, {ImageTransparency = 0.7})
             tween:Play()
-            wait(4)
+            task.wait(4)
         end
     end)
     
@@ -196,9 +205,9 @@ local function animateLoading()
             break
         end
         
-        wait(0.05)
+        task.wait(0.05)
     end
-    wait(1)
+    task.wait(1)
     local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Back, Enum.EasingDirection.In)
     local tween = TweenService:Create(MainFrame, tweenInfo, {
         Position = UDim2.new(0.5, 0, -1.5, 0)
@@ -212,6 +221,14 @@ local tween = TweenService:Create(MainFrame, tweenInfo, {
 })
 tween:Play()
 
-wait(1)
+task.wait(1)
 animateLoading()
+task.wait(0.5)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/Chooser.lua"))()
+ScreenGui:Destroy() 
 
+else
+game.Players.LocalPlayer:Kick("If you not accept the terms, you dont execute this script.")
+end
+end
+)
