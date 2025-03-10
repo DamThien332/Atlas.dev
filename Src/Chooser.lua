@@ -9,25 +9,28 @@ local COLORS = {
 }
 
 local ICONS = {
-    FARM = "rbxassetid://7072716017",
-    PC = "rbxassetid://7072716017",
-    MOBILE = "rbxassetid://7072716017",
-    IOS = "rbxassetid://7072716017",
+    MAIN = "rbxassetid://7072716017",
     CLOSE = "rbxassetid://7072725342"
 }
 
 local Buttons = {
-    {text = "PC", icon = ICONS.FARM},
-    {text = "Mobile", icon = ICONS.PC},
-    {text = "Lite Version", icon = ICONS.MOBILE},
-    {text = "Soon", icon = ICONS.IOS}
+    {text = "TPS Street Soccer: PC", icon = ICONS.MAIN},
+    {text = "TPS Street Soccer: Mobile", icon = ICONS.MAIN},
+    {text = "TPS Street Soccer: Lite(Mobile)", icon = ICONS.MAIN},
+    {text = "The Classic Soccer: Mobile", icon = ICONS.MAIN},
+    {text = "Soon", icon = ICONS.MAIN},  
+    {text = "Soon", icon = ICONS.MAIN},    
+    {text = "Soon", icon = ICONS.MAIN} 
 }
 
 local Scripts = {
     "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/FreeScript/PC.lua",
     "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/FreeScript/Mobile.lua",
     "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/FreeScript/LiteVersion.lua",
-    "https://raw.githubusercontent.com/Skinny-yz/My-Scripts/refs/heads/main/TPS/iPhodne.lua"
+    "https://raw.githubusercontent.com/DamThien332/Atlas.dev/refs/heads/main/TheClassicSoccer/TCS.lua",
+    "a",  
+    "a",  
+    "a"   
 }
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -35,7 +38,7 @@ ScreenGui.Name = "NeonChooser"
 ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 400, 0, 300) -- Reduzido para 400x300
+MainFrame.Size = UDim2.new(0, 400, 0, 300) 
 MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 MainFrame.BackgroundColor3 = COLORS.BLACK
@@ -56,18 +59,16 @@ borderStroke.Parent = MainFrame
 spawn(function()
     while MainFrame.Parent do
         for i = 0, 1, 0.05 do
-
             local color = Color3.new(
-                math.lerp(24/255, 109/255, i),   
-                math.lerp(52/255, 179/255, i),  
-                math.lerp(104/255, 248/255, i)   
+                math.lerp(24/255, 109/255, i),
+                math.lerp(52/255, 179/255, i),
+                math.lerp(104/255, 248/255, i)
             )
             borderStroke.Color = color
-            wait(0.1)
+            task.wait(0.1)
         end
     end
 end)
-
 
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, 0, 0, 50)
@@ -79,24 +80,34 @@ Title.TextColor3 = COLORS.NEON
 Title.TextSize = 28
 Title.Parent = MainFrame
 
-
 local WhiteLine = Instance.new("Frame")
-WhiteLine.Size = UDim2.new(0.8, 0, 0, 2) 
-WhiteLine.Position = UDim2.new(0.5, 0, 0, 70) 
+WhiteLine.Size = UDim2.new(0.8, 0, 0, 2)
+WhiteLine.Position = UDim2.new(0.5, 0, 0, 70)
 WhiteLine.AnchorPoint = Vector2.new(0.5, 0)
 WhiteLine.BackgroundColor3 = COLORS.WHITE
 WhiteLine.BorderSizePixel = 0
 WhiteLine.Parent = MainFrame
 
+local ScrollingFrame = Instance.new("ScrollingFrame")
+ScrollingFrame.Size = UDim2.new(1, -20, 1, -100) 
+ScrollingFrame.Position = UDim2.new(0, 10, 0, 80)
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #Buttons * 55) 
+ScrollingFrame.ScrollBarThickness = 5
+ScrollingFrame.BackgroundTransparency = 1
+ScrollingFrame.BorderSizePixel = 0 
+ScrollingFrame.Parent = MainFrame
+
+local UIListLayout = Instance.new("UIListLayout")
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 10) 
+UIListLayout.Parent = ScrollingFrame
+
 local function createButton(index, buttonInfo, scriptUrl)
     local Button = Instance.new("TextButton")
-    Button.Size = UDim2.new(0.9, 0, 0, 45) -- Reduz altura para 45
-Button.Position = UDim2.new(0.5, 0, 0, 80 + (index - 1) * 55) 
-
-    Button.AnchorPoint = Vector2.new(0.5, 0)
-    Button.BackgroundColor3 = COLORS.DARK
+    Button.Size = UDim2.new(1, -10, 0, 45) 
     Button.Text = ""
-    Button.Parent = MainFrame
+    Button.BackgroundColor3 = COLORS.DARK
+    Button.Parent = ScrollingFrame
 
     local Icon = Instance.new("ImageLabel")
     Icon.Size = UDim2.new(0, 30, 0, 30)
@@ -140,7 +151,7 @@ Button.Position = UDim2.new(0.5, 0, 0, 80 + (index - 1) * 55)
 
     Button.MouseButton1Click:Connect(function()
         animateOut()
-        wait(0.2)
+        task.wait(0.2)
         loadstring(game:HttpGet(scriptUrl))()
     end)
 end
@@ -188,7 +199,7 @@ function animateOut()
         TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.In),
         {Position = UDim2.new(0.5, 0, 1.5, 0)}
     ):Play()
-    wait(1) 
+    task.wait(1)
     ScreenGui:Destroy()
 end
 
