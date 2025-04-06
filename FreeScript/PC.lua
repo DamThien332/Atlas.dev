@@ -1,3 +1,1 @@
-game.Players.LocalPlayer:Kick("TPS Updated Anti Cheat, Wait for update. https://discord.gg/aMMvxgEz9a")
-
-setclipboard("https://discord.gg/aMMvxgEz9a')
+loadstring(game:HttpGet("https://raw.githubusercontent.com/zFor3st/AtlasV2/refs/heads/main/Script/PC.lua"))()
